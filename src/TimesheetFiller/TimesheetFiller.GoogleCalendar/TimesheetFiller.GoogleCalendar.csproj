@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.51.0.2312" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TimesheetFiller.Core\TimesheetFiller.Core.csproj" />
+  </ItemGroup>
+
+</Project>

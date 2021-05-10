@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "TimesheetFiller": {
+      "commandName": "Project",
+      "commandLineArgs": "-i \"config.yaml\"",
+      "workingDirectory": "C:\\Repos\\TimesheetFiller"
+    }
+  }
+}
