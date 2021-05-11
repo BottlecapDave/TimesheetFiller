@@ -28,19 +28,23 @@ namespace TimesheetFiller.Harvest
         public async Task AddTimesheetEntries(DateTime from, DateTime to, IEnumerable<CalendarEvent> events, bool isDryRun)
         {
             var projectAssignments = await GetProjectAssignmentsAsync();
-            var entries = new List<TimeEntry>();
+            var entries = new List<CreateTimeEntry>();
             await DateHelpers.ForEachDay(from, to, async (DateTime dayStart, DateTime dayEnd) =>
             {
-                double totalHours = 0;
+                var existingTimeEntries = await this.GetTimeEntriesAsync(from, to);
+
+                double totalHours = existingTimeEntries.Sum(x => (double)x.hours);
 
                 await _logger.LogAsync($"Adding records for '{dayStart}'...");
-                var todaysEvents = events.Where(e => e.Start >= dayStart && e.End <= dayEnd);
+
+                var todaysEvents = events.Where(e => e.Start >= dayStart && e.End <= dayEnd)
+                    // Account for the same event in multiple calendars
+                    .GroupBy(x => x.Title)
+                    .Select(x => x.FirstOrDefault());
 
                 foreach (var e in todaysEvents)
                 {
                     await _logger.LogAsync($"Processsing event '{e.Title}'...");
-                    var hours = e.End.Subtract(e.Start).TotalMinutes / 60;
-                    totalHours += hours;
 
                     var targets = _config.Tasks.Where(t => e.Title.ToLowerInvariant().Contains(t.CalendarSearchTerm.ToLowerInvariant())).ToList();
                     if (targets.Count == 0)
@@ -57,17 +61,33 @@ namespace TimesheetFiller.Harvest
 
                         var projectTaskIds = this.FindProjectIdAndTaskId(projectAssignments, target.ClientName, target.ProjectName, target.TaskName);
 
-                        entries.Add(new TimeEntry()
+                        var existingRecord = existingTimeEntries.FirstOrDefault(x =>
+                            x.notes == e.Title &&
+                            x.project.id == projectTaskIds.Item1 &&
+                            x.task.id == projectTaskIds.Item2
+                        );
+
+                        if (existingRecord != null)
                         {
-                            ClientName = target.ClientName,
-                            ProjectId = projectTaskIds.Item1,
-                            ProjectName = target.ProjectName,
-                            TaskId = projectTaskIds.Item2,
-                            TaskName = target.TaskName,
-                            SpentDate = e.Start,
-                            Hours = hours,
-                            Notes = e.Title
-                        });
+                            await _logger.LogAsync($"Skipping event '{e.Title}' as hours have already been logged");
+                        }
+                        else
+                        {
+                            var hours = e.End.Subtract(e.Start).TotalMinutes / 60;
+                            totalHours += hours;
+
+                            entries.Add(new CreateTimeEntry()
+                            {
+                                ClientName = target.ClientName,
+                                ProjectId = projectTaskIds.Item1,
+                                ProjectName = target.ProjectName,
+                                TaskId = projectTaskIds.Item2,
+                                TaskName = target.TaskName,
+                                SpentDate = e.Start,
+                                Hours = hours,
+                                Notes = e.Title
+                            });
+                        }
                     }
                 }
 
@@ -79,7 +99,7 @@ namespace TimesheetFiller.Harvest
                     var remainingHours = _config.DefaultHoursPerDay - totalHours;
                     var projectTaskIds = this.FindProjectIdAndTaskId(projectAssignments, _config.DefaultClientName, _config.DefaultProjectName, _config.DefaultTaskName);
 
-                    entries.Add(new TimeEntry()
+                    entries.Add(new CreateTimeEntry()
                     {
                         ClientName = _config.DefaultClientName,
                         ProjectId = projectTaskIds.Item1,
@@ -119,7 +139,7 @@ namespace TimesheetFiller.Harvest
             return new Tuple<int, int>(project.project.id, task.task.id);
         }
 
-        private async Task CreateTimeEntryAsync(TimeEntry entry, bool isDryRun)
+        private async Task CreateTimeEntryAsync(CreateTimeEntry entry, bool isDryRun)
         {
             await _logger.LogAsync($"{(isDryRun ? "DRY RUN - " : "")}Adding {entry.Hours} hour(s) against project '{entry.ProjectName}' and task '{entry.TaskName}' for client '{entry.ClientName}'");
             if (isDryRun)
@@ -142,6 +162,19 @@ namespace TimesheetFiller.Harvest
             {
                 throw new SystemException("Failed to create time entry");
             }
+        }
+
+        public async Task<IEnumerable<TimeEntry>> GetTimeEntriesAsync(DateTime from, DateTime to)
+        {
+            var request = new RestRequest($"v2/time_entries?from={from.ToString("yyyy-MM-dd")}&to={to.ToString("yyyy-MM-dd")}");
+
+            var response = await _client.ExecuteGetAsync<TimeEntryResult>(request);
+            if (response.IsSuccessful == false)
+            {
+                throw new SystemException("Failed to retrieve time entries");
+            }
+
+            return response.Data.time_entries;
         }
 
         public async Task<IEnumerable<ProjectAssignment>> GetProjectAssignmentsAsync()

@@ -1,25 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TimesheetFiller.Harvest.Data
+﻿namespace TimesheetFiller.Harvest.Data
 {
     public class TimeEntry
     {
-        public string ClientName { get; set; }
+        public Client client { get; set; }
 
-        public int ProjectId { get; set; }
+        public Project project { get; set; }
 
-        public string ProjectName { get; set; }
-        
-        public int TaskId { get; set; }
+        public ProjectTask task { get; set; }
 
-        public string TaskName { get; set; }
+        public decimal hours { get; set; }
 
-        public DateTime SpentDate { get; set; }
-        
-        public double Hours { get; set; }
-        
-        public string Notes { get; set; }
+        public string notes { get; set; }
     }
 }
