@@ -55,6 +55,11 @@ namespace TimesheetFiller.Cli
                     from = DateTime.Now.AddDays(-1 * diff).Date;
                     to = from.AddDays(7).AddSeconds(-1);
                 }
+                else if (options.IsYesterday)
+                {
+                    from = DateTime.Now.Date.AddDays(-1);
+                    to = from.AddDays(1).AddSeconds(-1);
+                }
                 else
                 {
                     from = DateTime.Now.Date;
