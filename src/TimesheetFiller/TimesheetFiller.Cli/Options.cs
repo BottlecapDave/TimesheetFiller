@@ -10,7 +10,7 @@ namespace TimesheetFiller.Cli
         [Option("week")]
         public bool IsThisWeek { get; set; }
 
-        [Option("week")]
+        [Option("yesterday")]
         public bool IsYesterday { get; set; }
 
         [Option("dry-run", HelpText = "Determines if this is is run in dry run")]
