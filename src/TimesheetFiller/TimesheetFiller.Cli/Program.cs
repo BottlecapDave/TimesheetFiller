@@ -53,7 +53,7 @@ namespace TimesheetFiller.Cli
                 {
                     int diff = (7 + (DateTime.Now.DayOfWeek - DayOfWeek.Monday)) % 7;
                     from = DateTime.Now.AddDays(-1 * diff).Date;
-                    to = from.AddDays(7).AddSeconds(-1);
+                    to = from.AddDays(5).AddSeconds(-1);
                 }
                 else if (options.IsYesterday)
                 {

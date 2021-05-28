@@ -31,7 +31,7 @@ namespace TimesheetFiller.Harvest
             var entries = new List<CreateTimeEntry>();
             await DateHelpers.ForEachDay(from, to, async (DateTime dayStart, DateTime dayEnd) =>
             {
-                var existingTimeEntries = await this.GetTimeEntriesAsync(from, to);
+                var existingTimeEntries = await this.GetTimeEntriesAsync(dayStart, dayEnd);
 
                 double totalHours = existingTimeEntries.Sum(x => (double)x.hours);
 
