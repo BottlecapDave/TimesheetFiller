@@ -39,6 +39,7 @@ namespace TimesheetFiller.GoogleCalendar
             {
                 if (_config.CalendarIds != null && _config.CalendarIds.Contains(calendar.Id) == false)
                 {
+                    await _logger.LogAsync($"Skipping calendar '{calendar.Summary}' ({calendar.Id})");
                     continue;
                 }
 

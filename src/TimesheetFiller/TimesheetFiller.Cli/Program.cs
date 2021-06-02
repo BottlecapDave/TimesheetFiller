@@ -47,24 +47,8 @@ namespace TimesheetFiller.Cli
                 //yml contains a string containing your YAML
                 var config = deserializer.Deserialize<Config>(content);
 
-                DateTime from;
-                DateTime to;
-                if (options.IsThisWeek)
-                {
-                    int diff = (7 + (DateTime.Now.DayOfWeek - DayOfWeek.Monday)) % 7;
-                    from = DateTime.Now.AddDays(-1 * diff).Date;
-                    to = from.AddDays(5).AddSeconds(-1);
-                }
-                else if (options.IsYesterday)
-                {
-                    from = DateTime.Now.Date.AddDays(-1);
-                    to = from.AddDays(1).AddSeconds(-1);
-                }
-                else
-                {
-                    from = DateTime.Now.Date;
-                    to = from.AddDays(1).AddSeconds(-1);
-                }
+                var from = DateTime.Now.Date.AddDays((options.DaysToOffset ?? 0) * -1).Date;
+                var to = DateTime.Now.Date.AddDays(1).AddSeconds(-1);
 
                 UserCredential credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
                     new ClientSecrets()

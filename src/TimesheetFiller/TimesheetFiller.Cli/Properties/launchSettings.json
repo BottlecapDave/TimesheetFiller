@@ -2,7 +2,7 @@
   "profiles": {
     "TimesheetFiller": {
       "commandName": "Project",
-      "commandLineArgs": "-i \"config.yaml\"",
+      "commandLineArgs": "-i \"config.yaml\" --offset 2",
       "workingDirectory": "C:\\Repos\\TimesheetFiller"
     }
   }
