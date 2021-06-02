@@ -41,13 +41,14 @@ google:
 harvest:
   accountId: {{SENSITIVE}}
   apiToken: {{SENSITIVE}}
-  # This represents how many hours you should be targeting
+  # This represents how many hours you should be targeting each day. If all events for the day don't add up to this time, then the remainder will be logged against the default task.
   defaultHoursPerDay: 8
   defaultClientName: CompanyX # This should match the name of the target Client in Harvest
   defaultProjectName: SuperProject # This should match the name of the target Project in Harvest
   defaultTaskName: Development # This should match the name of the target Task in Harvest
   tasks:
-  - calendarSearchTerm: Super Super Project # This is done as a partial case insensitive match
+  # The tasks that calendar events should be logged against when the summary partially matches the specified searh term (case insensitive)
+  - calendarSearchTerm: Super Super Project
     clientName: CompanyY
     projectName: SuperSuperProject
     taskName: Meeting
