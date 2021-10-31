@@ -12,7 +12,7 @@
     "@semantic-release/github",
     [
       "@semantic-release/exec", {
-        "prepareCmd" : "(cd src && DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true dotnet pack /p:Version= ${nextRelease.version})"
+        "prepareCmd" : "(cd src/TimesheetFiller.Cli && DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true dotnet pack /p:Version=${nextRelease.version})"
       }
     ],
     [
