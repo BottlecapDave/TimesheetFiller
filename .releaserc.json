@@ -22,7 +22,7 @@
     ],
     [
       "@semantic-release/git", {
-        "assets": ["package.json", "CHANGELOG.md", "./src/output/*.nupkg"],
+        "assets": ["package.json", "CHANGELOG.md"],
         "message": "release: Released v${nextRelease.version} [skip ci]"
       }
     ]
