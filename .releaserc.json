@@ -12,8 +12,7 @@
     "@semantic-release/github",
     [
       "@semantic-release/exec", {
-        "prepareCmd" : "(cd src && DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true dotnet pack /p:Version= ${nextRelease.version})",
-        "publishCmd": "(cd src/output && dotnet nuget push *.nupkg -k ${process.env.NUGET_TOKEN} -s https://api.nuget.org/v3/index.json"
+        "prepareCmd" : "(cd src && DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true dotnet pack /p:Version= ${nextRelease.version})"
       }
     ],
     [
