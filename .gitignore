@@ -2,5 +2,5 @@ config.yaml
 .vs
 bin
 obj
-src/TimesheetFiller/output/
-src/output/TimesheetFiller.Cli.1.0.0.nupkg
+src/output/
+node_modules/
