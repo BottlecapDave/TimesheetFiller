@@ -12,12 +12,12 @@
     [
       "@semantic-release/github", {
         "assets": [
-          {"path": "src/output/*.nupkg", "label": "Timesheet Filler"}
+          {"path": "src/output/*.nupkg", "label": "TimesheetFiller.nupkg"}
         ]
       }],
     [
       "@semantic-release/exec", {
-        "prepareCmd" : "(cd src/TimesheetFiller.Cli && DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true dotnet pack -c Release /p:Version=${nextRelease.version} /p:PackageReleaseNotes=\"${nextRelease.notes\")",
+        "prepareCmd" : "(cd src/TimesheetFiller.Cli && DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true dotnet pack -c Release /p:Version=${nextRelease.version} /p:PackageReleaseNotes=\"${nextRelease.notes}\" /p:PackageReadmeFile=../../readme.md)",
         "publishCmd": "dotnet nuget push ./src/output/*.nupkg -k ${process.env.NUGET_TOKEN} -s https://api.nuget.org/v3/index.json"
       }
     ],
