@@ -16,6 +16,8 @@ namespace TimesheetFiller.Harvest
 
         public string DefaultTaskName { get; set; }
 
+        public IEnumerable<string> DaysToIgnore { get; set; }
+
         public IEnumerable<HarvestCalendarTaskMap> Tasks { get; set; }
     }
 }

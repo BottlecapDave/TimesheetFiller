@@ -57,6 +57,9 @@ harvest:
   defaultClientName: CompanyX # This should match the name of the target Client in Harvest
   defaultProjectName: SuperProject # This should match the name of the target Project in Harvest
   defaultTaskName: Development # This should match the name of the target Task in Harvest
+  daysToIgnore:
+  - Saturday
+  - Sunday
   tasks:
   # The tasks that calendar events should be logged against when the summary partially matches the specified searh term (case insensitive)
   - calendarSearchTerm: Super Super Project

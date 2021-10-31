@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "commit": "cz",
+    "uninstall-local": "(DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true dotnet tool uninstall --global TimesheetFiller.Cli) || true",
+    "install-local": "(npm run uninstall-local && DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true dotnet tool install --global --add-source ./src/output TimesheetFiller.Cli)",
+    "build": "(cd src && DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true dotnet build)",
     "release": "semantic-release"
   },
   "repository": {

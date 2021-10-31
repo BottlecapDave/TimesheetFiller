@@ -31,6 +31,14 @@ namespace TimesheetFiller.Harvest
             var entries = new List<CreateTimeEntry>();
             await DateHelpers.ForEachDay(from, to, async (DateTime dayStart, DateTime dayEnd) =>
             {
+                // See if the day should be skipped
+                if (_config.DaysToIgnore != null && 
+                    String.IsNullOrEmpty(_config.DaysToIgnore.FirstOrDefault(x => String.Equals(x, dayStart.DayOfWeek.ToString(), StringComparison.InvariantCultureIgnoreCase))) == false)
+                {
+                    await _logger.LogAsync($"Skipping '{dayStart}'");
+                    return;
+                }
+
                 var existingTimeEntries = await this.GetTimeEntriesAsync(dayStart, dayEnd);
 
                 double totalHours = existingTimeEntries.Sum(x => (double)x.hours);
