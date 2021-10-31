@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/BottlecapDave/TimesheetFiller/compare/v1.0.0...v1.1.0) (2021-10-31)
+
+
+### Features
+
+* Added ability to skip days when adding time entries ([f9413ed](https://github.com/BottlecapDave/TimesheetFiller/commit/f9413ed33778f78ee101b97e7113e6967b7cb198))
+
 # 1.0.0 (2021-10-31)
 
 
