@@ -2,7 +2,9 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp6.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>TimesheetFiller.Cli</RootNamespace>
+    <ImplicitUsings>true</ImplicitUsings>
 
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>timesheet-filler</ToolCommandName>
@@ -10,6 +12,7 @@
 
     <PackageProjectUrl>https://github.com/BottlecapDave/TimesheetFiller</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/BottlecapDave/TimesheetFiller/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +24,10 @@
     <ProjectReference Include="..\TimesheetFiller.Core\TimesheetFiller.Core.csproj" />
     <ProjectReference Include="..\TimesheetFiller.GoogleCalendar\TimesheetFiller.GoogleCalendar.csproj" />
     <ProjectReference Include="..\TimesheetFiller.Harvest\TimesheetFiller.Harvest.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\readme.md" Pack="true" PackagePath=""/>
   </ItemGroup>
 
 </Project>
