@@ -12,7 +12,7 @@
 
     <PackageProjectUrl>https://github.com/BottlecapDave/TimesheetFiller</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/BottlecapDave/TimesheetFiller/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageReadmeFile>readme.m</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
