@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/BottlecapDave/TimesheetFiller/compare/v1.1.0...v1.2.0) (2022-07-23)
+
+
+### Features
+
+* Upgraded to .NET 6 ([61cf30e](https://github.com/BottlecapDave/TimesheetFiller/commit/61cf30e1720b539075ddf49249e0b124304727fd))
+* Upgraded to .NET 6 ([5516889](https://github.com/BottlecapDave/TimesheetFiller/commit/5516889dc759d1874333a084b9530a2a8cd670fb))
+
 # [1.1.0](https://github.com/BottlecapDave/TimesheetFiller/compare/v1.0.0...v1.1.0) (2021-10-31)
 
 
