@@ -27,8 +27,8 @@
     "commitizen": "^4.2.4",
     "conventional-changelog-eslint": "^3.0.9",
     "cz-customizable": "^6.3.0",
-    "husky": "^4.3.8",
-    "semantic-release": "^18.0.0"
+    "husky": "^8.0.3",
+    "semantic-release": "^21.0.1"
   },
   "config": {
     "commitizen": {
